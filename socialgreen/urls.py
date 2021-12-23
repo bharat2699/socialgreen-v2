@@ -16,8 +16,9 @@ Including another URLconf
 
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.static import serve
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from django.contrib.auth import views
 from apps.core.views import frontpage, signup
 from apps.feed.views import feed, search
@@ -45,5 +46,5 @@ urlpatterns = [
     path('chats/<int:user_id>/', chat, name="chat"),
     path('chats/', chats, name="chats"),
     path('api/add_message/', api_add_message, name='api_add_message'),
-
+    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
