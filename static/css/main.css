@@ -1,0 +1,26 @@
+body{
+    background: rgb(185, 255, 185);
+    
+}
+
+.wrapper-leafs{
+    margin-top: 30px;
+}
+
+    .wrapper-leafs .leaf {
+        margin-bottom: 10px;
+        padding: 20px;
+        border-radius: 4px;
+        background: rgb(0, 255, 0);
+
+    }
+
+    .wrapper-leafs .leaf .name{
+        font-weight: bold;
+    }
+
+    .wrapper-leafs .leaf .info {
+        font-size: 15px;
+        color: rgb(18, 31, 0);
+
+    }

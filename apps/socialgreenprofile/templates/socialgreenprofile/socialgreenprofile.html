@@ -1,0 +1,117 @@
+{% extends 'core/base.html' %}
+
+{% load humanize %}
+
+{% block content %}
+<div class="container" id="socialgreenprofileapp">
+    <div class="columns">
+        <div class="column is-12">
+            <h1 class="title">{{ user.username }}</h1>
+
+            {% if user.socialgreenprofile.avatar %}
+                <figure class="image is-128x128">
+                    <img class="is-rounded" src="{{ user.socialgreenprofile.avatar.url }}">
+                </figure>
+            {% endif %}
+
+            <hr>
+
+            <p><a href="{% url 'followers' user.username %}">Followers: {{ user.socialgreenprofile.followed_by.count }}</a></p>
+            <p><a href="{% url 'follows' user.username %}">Follows: {{ user.socialgreenprofile.follows.count }}</a></p>
+            
+            {% if user != request.user %}
+                <a href="{% url 'chat' user.id %}" class="button is-info">Send Seed</a>
+                {% if request.user.socialgreenprofile in user.socialgreenprofile.followed_by.all %}
+                    <a href="{% url 'unfollow_planter' user.username %}" class="button is-warning">UnFolllow</a>
+                {% else %}
+                    <a href="{% url 'follow_planter' user.username %}" class="button is-success">Follow</a>
+                {% endif %}
+
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="columns">
+        <div class="column is-8">
+            <div class="wrapper-leafs">
+                {% for leaf in leafs %}
+                    <div class="leaf">
+                        <article class="media">
+                            <figure class="media-left">
+                                <p class="image is-64x64">
+                                    {% if user.socialgreenprofile.avatar %}
+                                        <img class="is-rounded" src="{{ user.socialgreenprofile.avatar.url }}">
+                                    {% endif %}
+
+                                 </p>
+                            </figure>
+
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>
+                                        <strong>{{ leaf.created_by.username }}</strong>
+                                        <small>{{ leaf.created_at|naturaltime }}</small>
+                                        <br>
+                                        {{ leaf.body }}
+                                        <br>
+                                        <a @click="likeLeaf({{ leaf.id}})" v-if="!liked_leafs.includes({{ leaf.id }})">Like</a>
+                                        <span v-if="liked_leafs.includes({{ leaf.id }})">Liked</span>
+                                        <small id="likes-{{ leaf.id }}">{{ leaf.likes.count }} likes</small>
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script>
+    new Vue({
+        el: '#socialgreenprofileapp',
+        delimiters: ['[[', ']]'],
+        data() {
+            return {
+                liked_leafs: [{% for leaf in leafs %}{% if leaf.liked %} {{ leaf.id }}, {% endif %} {% endfor %}]
+        }
+    },
+
+        methods: {
+
+        likeLeaf(leaf_id) {
+            this.liked_leafs.push(parseInt(leaf_id));
+
+            var leaf = {
+                'leaf_id': leaf_id
+            };
+
+            fetch('/api/add_like/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                credentials: 'same-origin',
+                body: JSON.stringify(leaf)
+            })
+                .then((response) => {
+                    console.log(response);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+
+            const el = document.getElementById('likes-' + leaf_id);
+            const likes = parseInt(el.innerHTML.split(' ')[0] + 1);
+            el.innerHTML = likes + ' likes';
+        }
+
+    }
+    })
+</script>
+{% endblock %}

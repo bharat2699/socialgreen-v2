@@ -1,0 +1,29 @@
+{% extends 'core/base.html' %}
+
+{% load humanize %}
+
+{% block content %}
+<div class="container">
+    <div class="columns">
+        <div class="column is-12">
+            <h1 class="title">Follows - {{ user.username }}</h1>
+
+            <p>Count: {{ user.socialgreenprofile.follows.count }}</p>
+        </div>
+    </div>
+
+    <div class="columns">
+        <div class="column is-8">
+            {% for planter in user.socialgreenprofile.follows.all %}
+            <p><a href="{% url 'socialgreenprofile' planter.user.username %}">{{ planter.user.username }}</a></p>
+            {% empty %}
+            {% if request.user == user %}
+            <p>YOU FOLLOW NO ONE, SO YOU ARE KING!</p>
+            {% else %}
+            <p>{{ user.username }} DONT FOLLOW ANYONE!</p>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

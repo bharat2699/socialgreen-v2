@@ -1,0 +1,82 @@
+{% extends 'core/base.html' %}
+
+{% load humanize %}
+
+{% block content %}
+
+<div class="container">
+    <div class="columns">
+        <div class="column is-12">
+            <h1 class ="title">Search</h1>
+
+            <p>Search term: "{{ query }}"</p>
+
+            <hr>
+
+            <form method="get" action="{% url 'search' %}">
+                <div class="field">
+                    <div class="control">
+                        <input type="text" class="input" name="query" value="{{ query }}">
+
+                    </div>
+                </div>
+                <div class="field">
+                    <div class ="control">
+                        <button class="button is-success">Search</button>
+                    </div>
+
+                </div>
+            </form>
+
+            <hr>
+
+            <div class="search-results">
+            {% if not planters and not leafs %}
+            <p> NO RESULTS :-( </p>
+            {% endif %}
+            
+            {% if planters %}
+            <strong>Planters</strong>
+            
+            {% for planter in planters %}
+            <p><a href="{% url 'socialgreenprofile' planter.username %}">{{ planter.username }}</a></p>
+            {% endfor %}
+            {% endif %}
+            
+            {% if leafs %}
+            <strong>Leafs</strong>
+            
+            <div class="wrapper-leafs">
+                {% for leaf in leafs %}
+                <div class="leaf">
+                    <article class="media">
+                        <figure class="media-left">
+                            <p class="image is-64x64">
+                                {% if leaf.created_by.socialgreenprofile.avatar %}
+                                <img class="is-rounded" src="{{ leaf.created_by.socialgreenprofile.avatar.url }}">
+                                {% endif %}
+                            </p>
+                        </figure>
+            
+                        <div class="media-content">
+                            <div class="content">
+                                <p>
+                                    <strong><a href="{% url 'socialgreenprofile' leaf.created_by.username %}">{{ leaf.created_by.username }}</a></strong>
+                                    <small>{{ leaf.created_at|naturaltime }}</small>
+                                    <br>
+                                    {{ leaf.body }}
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

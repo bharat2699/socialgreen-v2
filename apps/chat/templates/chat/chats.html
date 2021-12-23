@@ -1,0 +1,30 @@
+{% extends 'core/base.html' %}
+
+{% load humanize %}
+
+{% block content %}
+<div class="container">
+    <div class="columns">
+        <div class="column is-12">
+            <h1 class="title">Chats</h1>
+
+            <div class="chats-list">
+                {% for chat in chats %}
+                <div class="chats-list-item">
+                    {% for user in chat.users.all %}
+                    {% if user != request.user %}
+                    
+                    <a href="{% url 'chat' user.id %}">
+                        <p>{{ user.username }} - {{ chat.modified_at|naturaltime }}</p>
+                    </a>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                {% empty %}
+                <p>No Chats, oh dont be shy!</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

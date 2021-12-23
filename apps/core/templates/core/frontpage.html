@@ -1,0 +1,113 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="columns">
+        <div class="column is-12">
+            <h1 class="title">Welcome to SocialGreen</h1>
+            <h2 class="subtitle" style="font-style: italic; color: rgb(13, 77, 0); font-weight: bold;">THINK GREEN, BE GREEN!</h2>
+            
+            <div class="content">
+                <img src="{% static 'core/icon.png' %}" style = "width: 100px; height: 100px;">
+                <h2>How to use :</h2>
+                <p>Hey, <strong>Planters</strong> how is life going, 
+                    let me introduce you with some basic nomenclature
+                </p>
+                <ul>
+                    <li><strong>PLANTER</strong> : User of this app</li>
+                    <li><strong>LEAF</strong> : Post in this app</li>
+                    <li><strong>LEAFS</strong> : Plural of post in this app</li>
+                    <li><strong>SEED</strong> : Personal message in this app</li>
+                    <li><strong>SEEDS</strong> : Plural of personal message in this app</li>              
+                </ul>
+                
+                <p>You can access each and every feature of this app by 
+                    Logging in, if you are not logged in SignUp now,
+                    Now, you will see all the features in that NavBar.
+                </p>
+
+                <p style="color: rgb(20, 50, 220); font-weight: bold;">FOR BETTER EXPERIENCE, BROWSE ON FULL SCREEN.</p>
+
+                <hr>
+
+                <h2>Some Awesome Features :</h2>
+                <ul>
+                    <li>SignUp functionality.</li>
+                    <li>Login and Logout functionality.</li>
+                    <li>Posting Text updates.</li>
+                    <li>Feed page will have posts by you as well as the planters you follow.</li>
+                    <li>Search for other Planters as well as there Leafs.</li>
+                    <li>"Dont be Shy just say Hi!", to your fellow planters through Chats.</li>
+                    <li>"Love all, Rival none", only LIKE button enabled.</li>
+                    <li>Edit your profile and add some cool pic of yours.</li>
+                    <li>visit planters profile from anywhere you want.</li>
+                    <li>See the name of planters who follow you in profile.</li>
+                    <li>Other features are Easter Eggs explore more to see.</li>
+                </ul>
+
+                <hr>
+
+                <h2>Features To Be Added in Future :</h2>
+                <ul>
+                    <li>Notifications feature.</li>
+                    <li>Highly Customizable Profile.</li>
+                    <li>Post your favourite pictures not just text.</li>
+                    <li>Send pokes to other planters.</li>
+                    <li>Mention other planters in your posts using '@' symbol.</li>
+                    <li>See latest news and weather updates(Google API).</li>
+                    <li>Buy developer a cup of coffee and a sapling to plant using payment gateways like PayTm and GPay.</li>
+                    <li>Using other Authentication methods like Google, Linkdin, etc.</li>
+                    <li>Making Customizable Icons rather than plain text in NavBar.</li>
+                    <li>Add more to UI.</li>
+                </ul>
+                
+                
+                <hr>
+
+                <h2>About the DEV :</h2>
+                <p> This project is made by <strong>Bharat Gyanchandani</strong>
+                    with all his efforts and using tools and technologies as listed below :
+                    </p>
+                <ul>
+                    <li>UI is made by using Bulma & Basic CSS.</li>
+                    <li>Frontend is made by using VueJS.</li>
+                    <li>Backend is made by using Django.</li>
+                    <li>Database used is SQL based SQLite3, i.e django's default database.</li>
+                    <li>Helpful tools like :</li>
+                    <ul>
+                        <li>VS Code</li>
+                        <li>PowerShell 7</li>
+                        <li>Djanerio Extension</li>
+                        <li>HTML Boilerplate</li>
+                        <li>HTML CSS Support Extension</li>
+                        <li>Vue3 Snippets</li>
+                    </ul>
+                    <li>Python Packages like: </li>
+                    <ul>
+                        <li>asgiref==3.4.1</li>
+                        <li>Django==4.0</li>
+                        <li>Pillow==8.4.0</li>
+                        <li>sqlparse==0.4.2</li>
+                        <li>tzdata==2021.5</li>
+                    </ul>
+                </ul>
+            
+                <hr>
+
+                <footer class="footer">
+                    <div class="content has-text-centered">
+                        <p>
+                            <strong>SocialGreen</strong> by Bharat Gyanchandani. The source code is open
+                            <a href="https://github.com/bharat2699/socialgreen-v2.git" target="_blank">GitHub</a>. The website content
+                            is licensed to Developer Bharat Gyanchandani. <br>
+                            Contact Developer: bharatgian@gmail.com 
+                        </p>
+                    </div>
+                </footer>
+        </div>
+    </div>
+
+
+{% endblock %}
